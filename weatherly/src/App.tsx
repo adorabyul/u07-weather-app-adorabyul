@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.scss'
 import Today from './today/Today'
 
@@ -47,12 +45,10 @@ function App() {
   }, [position]); 
 
   
-
-
   return (
     <div className="App">
      <h1 className="title">Weatherly</h1>
-     {currentWeather && (<Today currentWeather={currentWeather}></Today>)}
+     {currentWeather && (<Today status={status} currentWeather={currentWeather}></Today>)}
     </div>
   )
 
