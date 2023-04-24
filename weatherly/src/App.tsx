@@ -25,8 +25,9 @@ function App() {
     : setStatus("Loading");
 
     navigator.geolocation.getCurrentPosition((pos) => {
-        setStatus("");
+        setStatus("Success");
         setPosition({lat: pos.coords.latitude, lng: pos.coords.longitude});
+
     },
     () => {
         setStatus("Unable to retrieve your position")
@@ -48,7 +49,7 @@ function App() {
   return (
     <div className="App">
      <h1 className="title">Weatherly</h1>
-     {status == "Loading" ? currentWeather && (<Today currentWeather={currentWeather}></Today>)
+     {status == "Success" ? currentWeather && (<Today currentWeather={currentWeather}></Today>)
      :
      <h2>{status}</h2>
      }
