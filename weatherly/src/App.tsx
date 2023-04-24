@@ -48,7 +48,10 @@ function App() {
   return (
     <div className="App">
      <h1 className="title">Weatherly</h1>
-     {currentWeather && (<Today status={status} currentWeather={currentWeather}></Today>)}
+     {status == "Loading" ? currentWeather && (<Today currentWeather={currentWeather}></Today>)
+     :
+     <h2>{status}</h2>
+     }
     </div>
   )
 
