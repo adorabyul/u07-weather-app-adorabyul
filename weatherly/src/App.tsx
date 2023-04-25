@@ -1,28 +1,53 @@
 import { useEffect, useState } from 'react'
 import './App.scss'
 import Today from './today/Today'
+import ForecastToday from './ForecastToday/ForecastToday'
 
 
 function App() {
 
-  const URL = 'https://api.weatherapi.com/v1/current.json?key=';
+  const URL = 'https://api.weatherapi.com/v1/';
   const apiKey = import.meta.env.VITE_API_KEY;
 
   const [currentWeather, setCurrentWeather] = useState(undefined);
+  const [forecast, setForecast] = useState([{}]);
   const [status, setStatus] = useState("")
   const [position, setPosition] = useState({lat: 37.532600, lng: 127.024612})
 
 
 
   const getCurrentWeather = async () => {
-      const response = await fetch(URL + apiKey + '&q=' + position.lat + ',' + position.lng);
+      const response = await fetch(URL + 'current.json?key=' + apiKey + '&q=' + position.lat + ',' + position.lng);
       const result = await response.json();
       setCurrentWeather(result);
   }
 
+  const getForecast = async () => {
+    const response = await fetch(URL + 'forecast.json?key=' + apiKey + '&q=' + position.lat + ',' + position.lng + '&days=1')
+    const result = await response.json();
+    
+    const hours = result.forecast.forecastday[0].hour;
+    const currentTime = Date.now();
+
+    const hoursToDisplay : {}[] = [];
+    let j = 0;
+
+    for(let i = 0; i < hours.length; i++)
+    {
+      if(hours[i].time_epoch > currentTime/1000)
+      {
+        hoursToDisplay[j] = hours[i];
+        j++;
+        
+      }
+    }
+    setForecast(hoursToDisplay);
+    
+  }
+
   const getLocation = () => {
     !navigator.geolocation ? setStatus("Geolocation is not supported on your browser")
-    : setStatus("Loading");
+    : setStatus("Loading...");
 
     navigator.geolocation.getCurrentPosition((pos) => {
         setStatus("Success");
@@ -42,6 +67,7 @@ function App() {
 
   useEffect(() => {
     getCurrentWeather()
+    getForecast();
     
   }, [position]); 
 
@@ -52,6 +78,10 @@ function App() {
      {status == "Success" ? currentWeather && (<Today currentWeather={currentWeather}></Today>)
      :
      <h2>{status}</h2>
+     }
+     {status == "Success" && forecast.length > 0 ? <ForecastToday forecast={forecast}></ForecastToday>
+     :
+     <></>
      }
     </div>
   )
