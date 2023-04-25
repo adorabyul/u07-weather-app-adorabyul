@@ -12,22 +12,3 @@ h2 {
     font-size: 2.5em;
 }
 
-.sun {
-    max-width: 7em;
-        position: absolute;
-        transition: all 2s ease-in;
-        animation: spinning-sun 90s linear infinite
-
-}
-
-@keyframes spinning-sun {
-    from{
-        transform: rotate(0deg)
-    }
-    
-    to{
-        transform: rotate(360deg)
-    }
-    
-}
- 
