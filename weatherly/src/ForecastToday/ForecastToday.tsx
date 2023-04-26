@@ -31,10 +31,8 @@ export default function ForecastToday(props: any) {
         onMoveEnd={e => {
           console.log(e);
         }}>
-            
                 {renderHours()}
 
-        
       </Flicking>
 
         )

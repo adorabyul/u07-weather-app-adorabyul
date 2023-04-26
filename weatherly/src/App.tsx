@@ -26,32 +26,32 @@ function App() {
     const response = await fetch(URL + 'forecast.json?key=' + apiKey + '&q=' + position.lat + ',' + position.lng + '&days=2')
     const result = await response.json();
     
-    const hours = result.forecast.forecastday[0].hour;
-    const hours2 = result.forecast.forecastday[1].hour;
+    const dayOneHours = result.forecast.forecastday[0].hour;
+    const dayTwoHours = result.forecast.forecastday[1].hour;
     const currentTime = Date.now();
 
     const hoursToDisplay : {}[] = [];
     let j = 0;
 
 
-    for(let i = 0; i < hours.length; i++)
+    for(let i = 0; i < dayOneHours.length; i++)
     {
-      if(hours[i].time_epoch > currentTime/1000)
+      if(dayOneHours[i].time_epoch > currentTime/1000)
       {
-        hoursToDisplay[j] = hours[i];
+        hoursToDisplay[j] = dayOneHours[i];
         j++;
         
       }
     }
-    for(let k = 0; k < 12; k++)
+    for(let k = 0; k < dayTwoHours.length; k++)
     {
-      if(hours2[k].time_epoch > currentTime/1000 && hours2[k].time_epoch < hours2[k].time_epoch + 43200)
+      if(dayTwoHours[k].time_epoch > currentTime/1000 && dayTwoHours[k].time_epoch < currentTime/1000 + 86400) // 86400 == number of seconds in 24 hours
       {
-        hoursToDisplay.push(hours2[k])
+        hoursToDisplay.push(dayTwoHours[k])
         
       }
     }
-    setForecast(hoursToDisplay);
+    setForecast(hoursToDisplay); //Here hoursToDisplay == the next 24 hours
     
   }
 
@@ -84,15 +84,17 @@ function App() {
   
   return (
     <div className="App">
-     <h1 className="title">Weatherly</h1>
-     {status == "Success" ? currentWeather && (<Today currentWeather={currentWeather}></Today>)
-     :
-     <h2>{status}</h2>
-     }
-     {status == "Success" && forecast.length > 0 ? <ForecastToday forecast={forecast}></ForecastToday>
-     :
-     <></>
-     }
+      <h1 className="title">Weatherly</h1>
+      <div className="container">
+        {status == "Success" ? currentWeather && (<Today currentWeather={currentWeather}></Today>)
+        :
+        <h2>{status}</h2>
+        }
+        {status == "Success" && forecast.length > 0 ? <ForecastToday forecast={forecast}></ForecastToday>
+        :
+        <></>
+        }
+      </div>
     </div>
   )
 
