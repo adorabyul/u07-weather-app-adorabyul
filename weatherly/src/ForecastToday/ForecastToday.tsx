@@ -25,7 +25,7 @@ export default function ForecastToday(props: any) {
         className="dayForecastContainer"
         align="prev"
         bound={true}
-        deceleration={0.001}
+        deceleration={0.0005}
         circular={false}
         moveType='freeScroll'
         onMoveEnd={e => {
