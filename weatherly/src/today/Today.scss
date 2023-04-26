@@ -8,9 +8,17 @@ h2 {
   font-family: 'Helvetica Neue', 'HelveticaNeue-Light', "Helvetica Neue", 'Open Sans',  Helvetica, Arial, sans-serif;
   font-weight: lighter;
   font-size: 3em;
+
+  svg {
+     max-height: 1.5em;
+     max-width: 1.5em;
+  }
 }
 
 .temp {
     font-size: 2.5em;
+}
+.wind {
+  font-size: 1.7em;
 }
 
