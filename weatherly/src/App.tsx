@@ -23,14 +23,16 @@ function App() {
   }
 
   const getForecast = async () => {
-    const response = await fetch(URL + 'forecast.json?key=' + apiKey + '&q=' + position.lat + ',' + position.lng + '&days=1')
+    const response = await fetch(URL + 'forecast.json?key=' + apiKey + '&q=' + position.lat + ',' + position.lng + '&days=2')
     const result = await response.json();
     
     const hours = result.forecast.forecastday[0].hour;
+    const hours2 = result.forecast.forecastday[1].hour;
     const currentTime = Date.now();
 
     const hoursToDisplay : {}[] = [];
     let j = 0;
+
 
     for(let i = 0; i < hours.length; i++)
     {
@@ -38,6 +40,14 @@ function App() {
       {
         hoursToDisplay[j] = hours[i];
         j++;
+        
+      }
+    }
+    for(let k = 0; k < 12; k++)
+    {
+      if(hours2[k].time_epoch > currentTime/1000 && hours2[k].time_epoch < hours2[k].time_epoch + 43200)
+      {
+        hoursToDisplay.push(hours2[k])
         
       }
     }

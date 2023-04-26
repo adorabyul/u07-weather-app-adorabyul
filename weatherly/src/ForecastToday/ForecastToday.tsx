@@ -1,4 +1,7 @@
-import './ForecastToday.scss' 
+
+import Flicking, { FreeControl } from "@egjs/react-flicking";
+import "@egjs/react-flicking/dist/flicking.css";
+import './ForecastToday.scss';
 
 export default function ForecastToday(props: any) {
         
@@ -9,7 +12,7 @@ export default function ForecastToday(props: any) {
             let temp = props.forecast[i].temp_c;
             let hour = props.forecast[i].time.slice(-5, -3)
             let icon = "https:" + props.forecast[i].condition.icon;
-            hourList.push(<li className="dayForecastHour" key={i}><article ><p className="hour">{hour}</p><img src={icon}></img><p className="temp">{temp} &deg; C</p></article></li>)
+            hourList.push(<article className="dayForecastHour" key={i}><p className="hour">{hour}</p><img src={icon}></img><p className="temp">{temp} &deg; C</p></article>)
         }
         return hourList;
     }
@@ -17,13 +20,22 @@ export default function ForecastToday(props: any) {
 
 
     return (
-        <div className="dayForecastContainer">
-            <ul className="dayForecastList">
-                {renderHours()}
-            </ul>
+       
+        <Flicking
+        className="dayForecastContainer"
+        align="prev"
+        bound={true}
+        deceleration={0.001}
+        circular={false}
+        moveType='freeScroll'
+        onMoveEnd={e => {
+          console.log(e);
+        }}>
             
-        </div>
+                {renderHours()}
+
         
+      </Flicking>
 
         )
 }
