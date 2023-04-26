@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.scss'
 import Today from './today/Today'
 import ForecastToday from './ForecastToday/ForecastToday'
+import UpcomingForecast from './UpcomingForecast/UpcomingForecast'
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
 
   const [currentWeather, setCurrentWeather] = useState(undefined);
   const [forecast, setForecast] = useState([{}]);
+  const [upcomingForecast, setUpcomingForecast] = useState([{}]);
   const [status, setStatus] = useState("")
   const [position, setPosition] = useState({lat: 37.532600, lng: 127.024612})
 
@@ -23,17 +25,24 @@ function App() {
   }
 
   const getForecast = async () => {
-    const response = await fetch(URL + 'forecast.json?key=' + apiKey + '&q=' + position.lat + ',' + position.lng + '&days=2')
+    const response = await fetch(URL + 'forecast.json?key=' + apiKey + '&q=' + position.lat + ',' + position.lng + '&days=6')
     const result = await response.json();
     
     const dayOneHours = result.forecast.forecastday[0].hour;
     const dayTwoHours = result.forecast.forecastday[1].hour;
+
+    const upcomingDays : {}[] = [];
     const currentTime = Date.now();
-
     const hoursToDisplay : {}[] = [];
+
+   
+
+    for(let n = 1; n < result.forecast.forecastday.length; n++)
+    {
+      upcomingDays.push(result.forecast.forecastday[n])
+    }
+
     let j = 0;
-
-
     for(let i = 0; i < dayOneHours.length; i++)
     {
       if(dayOneHours[i].time_epoch > currentTime/1000)
@@ -51,9 +60,11 @@ function App() {
         
       }
     }
+
     setForecast(hoursToDisplay); //Here hoursToDisplay == the next 24 hours
-    
+    setUpcomingForecast(upcomingDays);
   }
+
 
   const getLocation = () => {
     !navigator.geolocation ? setStatus("Geolocation is not supported on your browser")
@@ -91,6 +102,10 @@ function App() {
         <h2>{status}</h2>
         }
         {status == "Success" && forecast.length > 0 ? <ForecastToday forecast={forecast}></ForecastToday>
+        :
+        <></>
+        }
+        {status == "Success" && upcomingForecast.length > 0 ? <UpcomingForecast upcomingForecast={upcomingForecast}></UpcomingForecast>
         :
         <></>
         }
