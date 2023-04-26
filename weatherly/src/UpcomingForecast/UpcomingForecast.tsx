@@ -6,6 +6,9 @@ export default function UpcomingForecast(props: any) {
 
     const renderForecast = () => {
         const dayList = [];
+        const iconList = [];
+        const tempList = [];
+        const forecastList = [];
         for(let i = 0; i < props.upcomingForecast.length; i++)
         {   
             let dayOfWeek = "";
@@ -27,9 +30,12 @@ export default function UpcomingForecast(props: any) {
             let low = props.upcomingForecast[i].day.mintemp_c;
             let high = props.upcomingForecast[i].day.maxtemp_c;
             let icon = "https:" + props.upcomingForecast[i].day.condition.icon;
-            dayList.push(<article className="dayItem" key={i}><p>{dayOfWeek}</p><img src={icon}></img><p>{high} &deg; C / {low} &deg; C</p></article>)
+            dayList.push(<p key={i}>{dayOfWeek}</p>)
+            iconList.push(<img key={i} src={icon}></img>)
+            tempList.push(<p key={i}>{high} &deg; C / {low} &deg; C</p>)
         }
-        return dayList;
+        forecastList.push(<div className="forecast"><div className="daysOfWeek">{dayList}</div> <div className="icons">{iconList}</div><div className="temps">{tempList}</div></div>)
+        return forecastList;
     }
 
 
