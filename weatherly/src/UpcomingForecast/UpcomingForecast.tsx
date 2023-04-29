@@ -14,7 +14,11 @@ export default function UpcomingForecast(props: any) {
             let dayOfWeek = "";
             if(i == 0)
             {
-                 dayOfWeek = "Tomorrow";
+                 dayOfWeek = "Today";
+            }
+            else if(i == 1)
+            {
+                dayOfWeek = "Tomorrow"
             }
             else
             {
@@ -32,7 +36,7 @@ export default function UpcomingForecast(props: any) {
             let icon = "https:" + props.upcomingForecast[i].day.condition.icon;
             dayList.push(<p key={i}>{dayOfWeek}</p>)
             iconList.push(<img key={i} src={icon}></img>)
-            tempList.push(<p key={i}>{high} &deg; C / {low} &deg; C</p>)
+            tempList.push(<p key={i}>{high}&deg;C / {low}&deg;C</p>)
         }
         forecastList.push(<div className="forecast"><div className="daysOfWeek">{dayList}</div> <div className="icons">{iconList}</div><div className="temps">{tempList}</div></div>)
         return forecastList;
@@ -53,6 +57,7 @@ export default function UpcomingForecast(props: any) {
           console.log(e);
         }}>
             {renderForecast()}
+
       </Flicking>
 
         )

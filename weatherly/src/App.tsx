@@ -18,6 +18,7 @@ function App() {
 
 
 
+
   const getCurrentWeather = async () => {
       const response = await fetch(URL + 'current.json?key=' + apiKey + '&q=' + position.lat + ',' + position.lng);
       const result = await response.json();
@@ -37,7 +38,7 @@ function App() {
 
    
 
-    for(let n = 1; n < result.forecast.forecastday.length; n++)
+    for(let n = 0; n < result.forecast.forecastday.length; n++)
     {
       upcomingDays.push(result.forecast.forecastday[n])
     }
@@ -81,6 +82,7 @@ function App() {
     );
 }
 
+
   useEffect(() => {
     getLocation();
 
@@ -95,6 +97,7 @@ function App() {
   
   return (
     <div className="App">
+    
       <h1 className="title">Weatherly</h1>
       <div className="container">
 
@@ -110,7 +113,9 @@ function App() {
         :
         <></>
         }
+        
       </div>
+      
     </div>
   )
 
