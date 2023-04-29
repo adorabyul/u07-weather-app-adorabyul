@@ -15,6 +15,7 @@ function App() {
   const [upcomingForecast, setUpcomingForecast] = useState([{}]);
   const [status, setStatus] = useState("")
   const [position, setPosition] = useState({lat: 37.532600, lng: 127.024612})
+  const [isCelsius, setIsCelsius] = useState(true);
 
 
 
@@ -82,6 +83,10 @@ function App() {
     );
 }
 
+const toggleUnit = () => {
+  setIsCelsius(!isCelsius);
+}
+
 
   useEffect(() => {
     getLocation();
@@ -98,18 +103,26 @@ function App() {
   return (
     <div className="App">
     
+    <nav>
       <h1 className="title">Weatherly</h1>
+        {isCelsius ? <div className='button' onClick={toggleUnit}>&deg;F</div>
+        :
+        <div className='button' onClick={toggleUnit}>&deg;C</div>
+        }
+    </nav>
+      
+      
       <div className="container">
 
-        {status == "Success" ? currentWeather && (<Today currentWeather={currentWeather}></Today>)
+        {status == "Success" ? currentWeather && <Today isCelsius={isCelsius} currentWeather={currentWeather}></Today>
         :
         <h2>{status}</h2>
         }
-        {status == "Success" && forecast.length > 0 ? <ForecastToday forecast={forecast}></ForecastToday>
+        {status == "Success" && forecast.length > 0 ? <ForecastToday isCelsius={isCelsius} forecast={forecast}></ForecastToday>
         :
         <></>
         }
-        {status == "Success" && upcomingForecast.length > 0 ? <UpcomingForecast upcomingForecast={upcomingForecast}></UpcomingForecast>
+        {status == "Success" && upcomingForecast.length > 0 ? <UpcomingForecast isCelsius={isCelsius} upcomingForecast={upcomingForecast}></UpcomingForecast>
         :
         <></>
         }

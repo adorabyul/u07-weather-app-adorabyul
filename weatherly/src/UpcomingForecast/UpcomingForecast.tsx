@@ -9,6 +9,8 @@ export default function UpcomingForecast(props: any) {
         const iconList = [];
         const tempList = [];
         const forecastList = [];
+        let unit = "";
+        props.isCelsius ? unit = "°C" : unit = "°F";
         for(let i = 0; i < props.upcomingForecast.length; i++)
         {   
             let dayOfWeek = "";
@@ -23,20 +25,27 @@ export default function UpcomingForecast(props: any) {
             else
             {
                 let timestamp = props.upcomingForecast[i].date_epoch;
-                console.log(timestamp)
                 let time = new Date(timestamp*1000);
                 var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-                console.log(time)
-                console.log(time.getDay());
                 dayOfWeek = days[time.getDay()];
             }
-
-            let low = props.upcomingForecast[i].day.mintemp_c;
-            let high = props.upcomingForecast[i].day.maxtemp_c;
+            let low = "";
+            let high = "";
+            if(props.isCelsius === true)
+            {
+                low = props.upcomingForecast[i].day.mintemp_c;
+                high = props.upcomingForecast[i].day.maxtemp_c;
+            }
+            else
+            {
+                low = props.upcomingForecast[i].day.mintemp_f;
+            high = props.upcomingForecast[i].day.maxtemp_f;
+            }
+            
             let icon = "https:" + props.upcomingForecast[i].day.condition.icon;
             dayList.push(<p key={i}>{dayOfWeek}</p>)
             iconList.push(<img key={i} src={icon}></img>)
-            tempList.push(<p key={i}>{high}&deg;C / {low}&deg;C</p>)
+            tempList.push(<p key={i}>{high}{unit} / {low}{unit}</p>)
         }
         forecastList.push(<div className="forecast"><div className="daysOfWeek">{dayList}</div> <div className="icons">{iconList}</div><div className="temps">{tempList}</div></div>)
         return forecastList;

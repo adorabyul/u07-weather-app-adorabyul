@@ -7,12 +7,17 @@ export default function ForecastToday(props: any) {
         
     const renderHours = () => {
         const hourList = [];
+        let unit = ""
+        let temp = "";
+        props.isCelsius ? unit = "°C" : unit = "°F";
         for(let i = 0; i < props.forecast.length; i++)
         {   
-            let temp = props.forecast[i].temp_c;
+            props.isCelsius ? temp = props.forecast[i].temp_c
+            :
+            temp = props.forecast[i].temp_f;
             let hour = props.forecast[i].time.slice(-5, -3)
             let icon = "https:" + props.forecast[i].condition.icon;
-            hourList.push(<article className="dayForecastHour" key={i}><p className="hour">{hour}</p><img src={icon}></img><p className="temp">{temp} &deg; C</p></article>)
+            hourList.push(<article className="dayForecastHour" key={i}><p className="hour">{hour}</p><img src={icon}></img><p className="temp">{temp}{unit}</p></article>)
         }
         return hourList;
     }

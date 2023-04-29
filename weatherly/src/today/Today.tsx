@@ -19,8 +19,11 @@ export default function today(props: any) {
                     </svg>
                     <h2>{Math.round(props.currentWeather.current.wind_kph * 5/18)} m/s {props.currentWeather.current.wind_dir}</h2>
                 </span>
-                
+                {props.isCelsius ? 
                 <h2 className="temp">{props.currentWeather.current.temp_c}&deg;C</h2>
+                :
+                <h2 className="temp">{props.currentWeather.current.temp_f}&deg;F</h2>
+                }
                 <h2 className="humidity">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
