@@ -97,6 +97,7 @@ function App() {
     <div className="App">
       <h1 className="title">Weatherly</h1>
       <div className="container">
+
         {status == "Success" ? currentWeather && (<Today currentWeather={currentWeather}></Today>)
         :
         <h2>{status}</h2>
