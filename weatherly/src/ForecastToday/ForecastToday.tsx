@@ -4,6 +4,11 @@ import "@egjs/react-flicking/dist/flicking.css";
 import './ForecastToday.scss';
 
 export default function ForecastToday(props: any) {
+
+  
+
+    console.log = function(){}; //Override
+
         
     const renderHours = () => {
         const hourList = [];
@@ -33,7 +38,9 @@ export default function ForecastToday(props: any) {
         deceleration={0.001}
         circular={false}
         moveType='freeScroll'
-        >
+        onMoveEnd={e => {
+          console.log(e);
+        }}>
                 {renderHours()}
 
       </Flicking>
