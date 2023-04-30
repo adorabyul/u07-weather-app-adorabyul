@@ -36,7 +36,7 @@ export default function ForecastToday(props: any) {
 
     return (
        
-        //Scroll component
+     
         <Flicking
         className="dayForecastContainer"
         align="prev"
@@ -45,9 +45,9 @@ export default function ForecastToday(props: any) {
         circular={false}
         moveType='freeScroll'
         onMoveEnd={e => {
-          console.log(e); //Overridden
+          console.log(e); //Overridden 
         }}>
-                {renderHours()} //Render elements
+                {renderHours()}
 
       </Flicking>
 
