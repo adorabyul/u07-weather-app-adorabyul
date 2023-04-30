@@ -33,9 +33,7 @@ export default function ForecastToday(props: any) {
         deceleration={0.001}
         circular={false}
         moveType='freeScroll'
-        onMoveEnd={e => {
-          console.log(e);
-        }}>
+        >
                 {renderHours()}
 
       </Flicking>
