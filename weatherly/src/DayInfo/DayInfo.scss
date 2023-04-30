@@ -1,0 +1,33 @@
+.dayInfo {
+    
+    background-color: #87CEEB;
+    border-radius: 1em;
+    margin-top: 3em;
+    margin-left: 1em;
+    margin-right: 1em;
+
+    
+    width: 30vw;
+    min-width: 24em;
+    max-width: 50em;
+    min-height: 27em;
+    max-height: 27em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    
+    h2 {
+        margin: 1em;
+        font-size: 1em;
+    }
+}
+
+@media only screen and (max-width: 543px) {
+
+    .dayInfo {
+        margin-bottom: 2em;
+    }
+    
+}

@@ -3,6 +3,7 @@ import './App.scss'
 import Today from './today/Today'
 import ForecastToday from './ForecastToday/ForecastToday'
 import UpcomingForecast from './UpcomingForecast/UpcomingForecast'
+import DayInfo from './DayInfo/DayInfo'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   const [status, setStatus] = useState("")
   const [position, setPosition] = useState({lat: 37.532600, lng: 127.024612})
   const [isCelsius, setIsCelsius] = useState(true);
+  const [astroToday, setAstroToday] = useState({});
 
 
 
@@ -32,6 +34,8 @@ function App() {
     
     const dayOneHours = result.forecast.forecastday[0].hour;
     const dayTwoHours = result.forecast.forecastday[1].hour;
+
+    setAstroToday(result.forecast.forecastday[0].astro)
 
     const upcomingDays : {}[] = [];
     const currentTime = Date.now();
@@ -118,14 +122,25 @@ const toggleUnit = () => {
         :
         <h2>{status}</h2>
         }
-        {status == "Success" && forecast.length > 0 ? <ForecastToday isCelsius={isCelsius} forecast={forecast}></ForecastToday>
+        <div className='middleContent'>
+          
+          {status == "Success" && forecast.length > 0 ? <div><p className='description24Hour'>24-Hour Forecast</p><ForecastToday isCelsius={isCelsius} forecast={forecast}></ForecastToday></div>
+          :
+          <></>
+          }
+        </div>
+       
+        <div className="bottomContent">
+        {status == "Success" && upcomingForecast.length > 0 ? <div><p className='bottomText'>5-Day Forecast</p> <UpcomingForecast isCelsius={isCelsius} upcomingForecast={upcomingForecast}></UpcomingForecast> </div>
         :
         <></>
         }
-        {status == "Success" && upcomingForecast.length > 0 ? <UpcomingForecast isCelsius={isCelsius} upcomingForecast={upcomingForecast}></UpcomingForecast>
+        {status == "Success" ? currentWeather && <div><p className='bottomText'>Today</p><DayInfo astroToday={astroToday} isCelsius={isCelsius} currentWeather={currentWeather}></DayInfo></div>
         :
         <></>
         }
+        </div>
+       
         
       </div>
       
