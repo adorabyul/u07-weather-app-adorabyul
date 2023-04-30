@@ -2,6 +2,7 @@ import './DayInfo.scss'
 
 export default function DayInfo(props: any) {
 
+        //Convert 12h time to 24h
     const getTwentyFourHourTime = (time: string) => {
         let date = new Date("1/1/1970 " + time);
         let hour = ""
