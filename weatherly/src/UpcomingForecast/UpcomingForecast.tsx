@@ -47,27 +47,22 @@ export default function UpcomingForecast(props: any) {
             iconList.push(<img key={i} src={icon}></img>)
             tempList.push(<p key={i}>{high}{unit} / {low}{unit}</p>)
         }
-        forecastList.push(<div className="forecast"><div className="daysOfWeek">{dayList}</div> <div className="icons">{iconList}</div><div className="temps">{tempList}</div></div>)
+        forecastList.push(<div key={'forecast'} className="forecast"><div key={'daysOfWeek'} className="daysOfWeek">{dayList}</div> <div key={'icons'} className="icons">{iconList}</div><div key={'temps'} className="temps">{tempList}</div></div>)
         return forecastList;
     }
 
 
     return (
        
-        <Flicking
+        <section
         className="dayContainer"
-        align="prev"
-        bound={true}
-        deceleration={0.0005}
-        circular={false}
-        horizontal={false}
-        moveType='freeScroll'
-        onMoveEnd={e => {
-          console.log(e);
-        }}>
-            {renderForecast()}
+        >
+            
+                {renderForecast()}
+          
+            
 
-      </Flicking>
+      </section>
 
         )
 }
