@@ -1,5 +1,3 @@
-import Flicking from "@egjs/react-flicking";
-import "@egjs/react-flicking/dist/flicking.css";
 import './UpcomingForecast.scss'
 
 export default function UpcomingForecast(props: any) {
